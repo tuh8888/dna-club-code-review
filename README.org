@@ -30,68 +30,121 @@
 #+REVEAL_ROOT: ./node_modules/reveal.js
 #+REVEAL_TITLE_SLIDE: <h2 class="title">%t</h2><p class="author">%a</p><p>University of Colorado Anschutz Medical Campus</p><p class="date">%d</p>
 
-* SME-clj: Clone it!
-  - Code base: [[github.com/tuh8888/SME-clj]]
-  - This presentation: github.com/tuh8888/DnA-Code-Club-June-2021
+* Clone the Repo
+  - Code base: [[https:www.github.com/tuh8888/SME-clj]]
+  - This presentation: [[https:www.github.com/tuh8888/DnA-Code-Club-June-2021]]
+#+begin_src bash
+  npm install
+  xdg-open ./README.html
+#+end_src
+
 
 * Analyzing biological mechanisms using analogy
-  - Mechanisms are entities and activities and their organization such that they are productive of regular changes from initial to terminal conditions.
-  - Analogy is the comparison or alignment of two structured representations
+  :PROPERTIES:
+  :CUSTOM_ID: mechanism-def
+  :END:
+ #+begin_quote
+  Mechanisms are entities and activities and their organization such that they are productive of regular changes from initial to terminal conditions.
+ #+end_quote
 
-* Analogy 101
-  - Identify corresponding elements
-  - Inference between base and target
+ #+begin_quote
+  Analogy is the comparison or alignment of two structured representations
+ #+end_quote
 
-* Computational tools for analogy
-  - Structure Mapping Engine
-  - Copycat
-  # TODO Other
+** Analogy 101
+   :PROPERTIES:
+   :CUSTOM_ID: analogy
+   :END:
+   - Base and target
+   - Corresponding elements
+   - Inference
+
+** Computational tools for analogy
+   :PROPERTIES:
+   :CUSTOM_ID: comp-analogy
+   :END:
+   - Structure Mapping Engine
+   - Copycat
+   # TODO Other
 
 * Structure mapping engine
+  :PROPERTIES:
+  :CUSTOM_ID: sme
+  :END:
 
 ** Inputs:
+   :PROPERTIES:
+   :CUSTOM_ID: input
+   :END:
    - Base concept graph
    - Target concept graph
    - Rule set
 
 ** Outputs:
+   :PROPERTIES:
+   :CUSTOM_ID: output
+   :END:
    - Global mapping containing:
       - A set of match hypotheses (correspondences)
       - Inferences, some of which are transferred from the base to the target
 
 ** Overview of the strategy
-   - Generate potential match hypotheses
-   - Match internally consistent sets of match hypotheses (global mappings)
-   - Merge global mappings
-   - Score global mappings
-   - Inference
-   - Transfer inferences
+   :PROPERTIES:
+   :CUSTOM_ID: overview
+   :END:
+   1. Generate potential match hypotheses
+   2. Match internally consistent sets of match hypotheses (global mappings)
+   3. Merge global mappings
+   4. Score global mappings
+   5. Inference
+   6. Transfer inferences
+
+** Consistency
+   # TODO
 
 ** Benefits
+   :PROPERTIES:
+   :CUSTOM_ID: benefits
+   :END:
    - Relatively simple
    - Seems to handle certain cases well
    - Computationally tractable solution to difficult problem
 
 ** Limitations
+   :PROPERTIES:
+   :CUSTOM_ID: limitations
+   :END:
    - Made for first-order logic
    - Hard-coded rules and types
 
-** Consistency
-   # TODO
-
 * History of the code-base
+  :PROPERTIES:
+  :CUSTOM_ID: history
+  :END:
 
 ** Common Lisp implementation
+   :PROPERTIES:
+   :CUSTOM_ID: lisp
+   :END:
    # TODO 1980's
 
 ** Clojure re-write and simplification
+   :PROPERTIES:
+   :CUSTOM_ID: first-re-write
+   :END:
    - SME-clj
 
 ** My fork: SME-clj reborn
+   :PROPERTIES:
+   :CUSTOM_ID: fork
+   :END:
    - Mops representation
    - Further simplification
 
 * Clojure 101
+  :PROPERTIES:
+  :CUSTOM_ID: clojure
+  :END:
   - Functional
   - Dynamic
   - Lisp (function calls are first)
@@ -99,6 +152,9 @@
   - REPL-driven development
 
 ** Example
+   :PROPERTIES:
+   :CUSTOM_ID: clojure-example
+   :END:
   #+BEGIN_SRC clojure
 (+ 1 2 3)
 ;; => 6
@@ -125,7 +181,13 @@
   #+END_SRC
 
 * The Code!
+  :PROPERTIES:
+  :CUSTOM_ID: code
+  :END:
 ** Project organization
+   :PROPERTIES:
+   :CUSTOM_ID: project-org
+   :END:
    # TODO project directory structure
    - Source
      - Predefined rule sets
@@ -134,13 +196,22 @@
    - Tests
    - Notebooks
 ** Predefined rule sets
+   :PROPERTIES:
+   :CUSTOM_ID: rules
+   :END:
    - Named rules
    - Functions
    - Literal similarity vs analogy rules
 ** Type logic
+   :PROPERTIES:
+   :CUSTOM_ID: types
+   :END:
    - Building knowledge graphs
    - Handling different representations with multi-methods
 ** Core pipeline
+   :PROPERTIES:
+   :CUSTOM_ID: pipeline
+   :END:
    1. Generate match hypotheses
    2. Create combinations of sets of match hypotheses
    3. Merge global mappings
@@ -148,9 +219,15 @@
    5. Inference
    6. Transfer inferences
 
-* Example: Solar system model of the atom
+* [[http:localhost:3000][Example: Solar system model of the atom]]
+  :PROPERTIES:
+  :CUSTOM_ID: solar-atom
+  :END:
 
 * Old vs. New: What changed?
+  :PROPERTIES:
+  :CUSTOM_ID: old-v-new
+  :END:
 
 ** Ease of use
 *** Before
@@ -183,6 +260,9 @@
    # TODO explain testing framework
 
 * Challenges
+  :PROPERTIES:
+  :CUSTOM_ID: challenges
+  :END:
 ** Large intermediate output (Solved)
    - Difficult to parse giant maps of repetitive information
 
@@ -192,13 +272,20 @@
    - Multiple global mappings are output, some with intuitively "wrong" correspondences.
 
 ** Combinatorics (Work in progress)
+   :PROPERTIES:
+   :CUSTOM_ID: combinatorics
+   :END:
    - All combinations of potentially corresponding entities gets huge quick.
    - What I call the "maximum constrained subset problem"
      - Given a set, $S$, and a constraint, $C$, find all maximum sized sets s.t. $S$ satisfies $C$
      - Number of possible subsets is $2^{|S|}$
      - Naive BFS doesn't help
+   - O(2^n)
 
 * The larger picture
+  :PROPERTIES:
+  :CUSTOM_ID: larger-picture
+  :END:
 
 ** Where it fits into my own work
    - Uses my MOPs library
@@ -208,8 +295,14 @@
 ** Alternatives
 
 * Calcium sparks and neuron spiking
+  :PROPERTIES:
+  :CUSTOM_ID: calcium-neuron
+  :END:
 
 * TODO
+  :PROPERTIES:
+  :CUSTOM_ID: future
+  :END:
   - Handwritten library of analogies
   - Solve the "maximum constrained subset problem"
   - More interactive visualizations

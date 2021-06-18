@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Structure Mapping Engine (SME-clj)</title>
+<meta name="author" content="Harrison Pielke-Lombardo"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./node_modules/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="./node_modules/reveal.js/dist/theme/sky.css" id="theme"/>
+
+<link rel="stylesheet" href="custom.css"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h2 class="title">Structure Mapping Engine (SME-clj)</h2><p class="author">Harrison Pielke-Lombardo</p><p>University of Colorado Anschutz Medical Campus</p><p class="date">06/18/2021</p>
+</section>
+
+<section>
+<section id="slide-org9376bf6">
+<h2 id="org9376bf6">SME-clj: Clone it!</h2>
+<ul>
+<li>Code base: <a href="https:www.github.com/tuh8888/SME-clj">https:www.github.com/tuh8888/SME-clj</a></li>
+<li>This presentation: github.com/tuh8888/DnA-Code-Club-June-2021</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd0d7e40">
+<h2 id="orgd0d7e40">Analyzing biological mechanisms using analogy</h2>
+<ul>
+<li>Mechanisms are entities and activities and their organization such that they are productive of regular changes from initial to terminal conditions.</li>
+<li>Analogy is the comparison or alignment of two structured representations</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org8ff5bf2">
+<h2 id="org8ff5bf2">Analogy 101</h2>
+<ul>
+<li>Identify corresponding elements</li>
+<li>Inference between base and target</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org7690439">
+<h2 id="org7690439">Computational tools for analogy</h2>
+<ul>
+<li>Structure Mapping Engine</li>
+<li>Copycat</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org318015a">
+<h2 id="org318015a">Structure mapping engine</h2>
+<div class="outline-text-2" id="text-org318015a">
+</div>
+</section>
+<section id="slide-org5e657a1">
+<h3 id="org5e657a1">Inputs:</h3>
+<ul>
+<li>Base concept graph</li>
+<li>Target concept graph</li>
+<li>Rule set</li>
+
+</ul>
+
+</section>
+<section id="slide-org65ee2a8">
+<h3 id="org65ee2a8">Outputs:</h3>
+<ul>
+<li>Global mapping containing:
+<ul>
+<li>A set of match hypotheses (correspondences)</li>
+<li>Inferences, some of which are transferred from the base to the target</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-orged393a4">
+<h3 id="orged393a4">Overview of the strategy</h3>
+<ul>
+<li>Generate potential match hypotheses</li>
+<li>Match internally consistent sets of match hypotheses (global mappings)</li>
+<li>Merge global mappings</li>
+<li>Score global mappings</li>
+<li>Inference</li>
+<li>Transfer inferences</li>
+
+</ul>
+
+</section>
+<section id="slide-orgd4f85a6">
+<h3 id="orgd4f85a6">Benefits</h3>
+<ul>
+<li>Relatively simple</li>
+<li>Seems to handle certain cases well</li>
+<li>Computationally tractable solution to difficult problem</li>
+
+</ul>
+
+</section>
+<section id="slide-org8f7f7f6">
+<h3 id="org8f7f7f6">Limitations</h3>
+<ul>
+<li>Made for first-order logic</li>
+<li>Hard-coded rules and types</li>
+
+</ul>
+
+</section>
+<section id="slide-org9664fd0">
+<h3 id="org9664fd0">Consistency</h3>
+
+</section>
+</section>
+<section>
+<section id="slide-org6268f21">
+<h2 id="org6268f21">History of the code-base</h2>
+<div class="outline-text-2" id="text-org6268f21">
+</div>
+</section>
+<section id="slide-orgb649949">
+<h3 id="orgb649949">Common Lisp implementation</h3>
+
+</section>
+<section id="slide-orgfd3e87f">
+<h3 id="orgfd3e87f">Clojure re-write and simplification</h3>
+<ul>
+<li>SME-clj</li>
+
+</ul>
+
+</section>
+<section id="slide-org4a0c33d">
+<h3 id="org4a0c33d">My fork: SME-clj reborn</h3>
+<ul>
+<li>Mops representation</li>
+<li>Further simplification</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgcfaa473">
+<h2 id="orgcfaa473">Clojure 101</h2>
+<ul>
+<li>Functional</li>
+<li>Dynamic</li>
+<li>Lisp (function calls are first)</li>
+<li>JVM or Browser hosted</li>
+<li>REPL-driven development</li>
+
+</ul>
+
+</section>
+<section id="slide-orgf7ede0d">
+<h3 id="orgf7ede0d">Example</h3>
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #4d9391;">(</span>+ <span style="color: #cd5c60;">1</span> <span style="color: #cd5c60;">2</span> <span style="color: #cd5c60;">3</span><span style="color: #4d9391;">)</span>
+<span style="color: #7c878a;">;; </span><span style="color: #7c878a;">=&gt; 6</span>
+
+<span style="color: #4d9391;">(</span><span style="color: #13665F;">let</span> <span style="color: #a9779c;">[</span>x <span style="color: #cd5c60;">2</span>
+      y <span style="color: #cd5c60;">3</span>
+      x <span style="color: #4C7A90;">(</span>+ x y<span style="color: #4C7A90;">)</span><span style="color: #a9779c;">]</span>
+  <span style="color: #a9779c;">(</span>+ x y<span style="color: #a9779c;">)</span><span style="color: #4d9391;">)</span>
+<span style="color: #7c878a;">;; </span><span style="color: #7c878a;">=&gt; 7</span>
+
+<span style="color: #4d9391;">(</span><span style="color: #13665F;">-&gt;&gt;</span> <span style="color: #a9779c;">[</span><span style="color: #39854C;">"Happy"</span> <span style="color: #cd5c60;">1</span> '<span style="color: #4C7A90;">(</span>str <span style="color: #787096;">(</span><span style="color: #E36B3F;">Integer</span>/parseInt <span style="color: #39854C;">"21"</span><span style="color: #787096;">)</span> <span style="color: #39854C;">"st"</span><span style="color: #4C7A90;">)</span> <span style="color: #cd5c60;">2</span> <span style="color: #cd5c60;">3</span> <span style="color: #39854C;">"birthday!"</span><span style="color: #a9779c;">]</span>
+  <span style="color: #a9779c;">(</span>remove int?<span style="color: #a9779c;">)</span>
+  <span style="color: #a9779c;">(</span>map eval<span style="color: #a9779c;">)</span>
+  <span style="color: #a9779c;">(</span>interpose <span style="color: #39854C;">" "</span><span style="color: #a9779c;">)</span>
+  <span style="color: #a9779c;">(</span>reduce str<span style="color: #a9779c;">)</span><span style="color: #4d9391;">)</span>
+<span style="color: #7c878a;">;; </span><span style="color: #7c878a;">=&gt; "Happy 21st birthday!"</span>
+
+<span style="color: #4d9391;">(</span><span style="color: #13665F;">def</span> <span style="color: #845A84;">greeting</span> <span style="color: #39854C;">"Hello"</span><span style="color: #4d9391;">)</span>
+<span style="color: #4d9391;">(</span><span style="color: #13665F;">defn</span> <span style="color: #4C7A90;">hello</span> <span style="color: #a9779c;">[</span>name<span style="color: #a9779c;">]</span>
+  <span style="color: #a9779c;">(</span>println greeting name <span style="color: #39854C;">"!"</span><span style="color: #a9779c;">)</span><span style="color: #4d9391;">)</span>
+
+<span style="color: #4d9391;">(</span>hello <span style="color: #39854C;">"DnA code club"</span><span style="color: #4d9391;">)</span>
+<span style="color: #7c878a;">;; </span><span style="color: #7c878a;">"Hello DnA code club!"</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org3feaa1d">
+<h2 id="org3feaa1d">The Code!</h2>
+<div class="outline-text-2" id="text-org3feaa1d">
+</div>
+</section>
+<section id="slide-orga6b6c78">
+<h3 id="orga6b6c78">Project organization</h3>
+<ul>
+<li>Source
+<ul>
+<li>Predefined rule sets</li>
+<li>Type logic</li>
+<li>Core pipeline</li>
+
+</ul></li>
+<li>Tests</li>
+<li>Notebooks</li>
+
+</ul>
+</section>
+<section id="slide-org702efac">
+<h3 id="org702efac">Predefined rule sets</h3>
+<ul>
+<li>Named rules</li>
+<li>Functions</li>
+<li>Literal similarity vs analogy rules</li>
+
+</ul>
+</section>
+<section id="slide-org5a80e6d">
+<h3 id="org5a80e6d">Type logic</h3>
+<ul>
+<li>Building knowledge graphs</li>
+<li>Handling different representations with multi-methods</li>
+
+</ul>
+</section>
+<section id="slide-org065b84a">
+<h3 id="org065b84a">Core pipeline</h3>
+<ol>
+<li>Generate match hypotheses</li>
+<li>Create combinations of sets of match hypotheses</li>
+<li>Merge global mappings</li>
+<li>Finalize (score, etc.)</li>
+<li>Inference</li>
+<li>Transfer inferences</li>
+
+</ol>
+
+</section>
+</section>
+<section>
+<section id="slide-org9c48cc4">
+<h2 id="org9c48cc4">Example: Solar system model of the atom</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org2909895">
+<h2 id="org2909895">Old vs. New: What changed?</h2>
+<div class="outline-text-2" id="text-org2909895">
+</div>
+</section>
+<section id="slide-org49a28ea">
+<h3 id="org49a28ea">Ease of use</h3>
+<div class="outline-text-3" id="text-org49a28ea">
+</div>
+</section>
+<section id="slide-org5a352ca">
+<h4 id="org5a352ca">Before</h4>
+<ul>
+<li>Extremely large output and intermediate steps</li>
+<li>Dispersed, mutable knowledge</li>
+<li>Hard to experiment with predefined types</li>
+
+</ul>
+</section>
+<section id="slide-org01044e5">
+<h4 id="org01044e5">After</h4>
+<ul>
+<li>Removed everything except match hypotheses in intermediate steps</li>
+<li>Condensed, immutable knowledge graph</li>
+<li>Keyword representation is much more flexible</li>
+
+</ul>
+
+</section>
+<section id="slide-orgd6716df">
+<h3 id="orgd6716df">MOPs representation</h3>
+<div class="outline-text-3" id="text-orgd6716df">
+</div>
+</section>
+<section id="slide-org2df0759">
+<h4 id="org2df0759">Memory Organization Packets  (MOPs)</h4>
+<ul>
+<li>Composed of slots
+<ul>
+<li>Roles</li>
+<li>Fillers</li>
+
+</ul></li>
+<li>Meta-data</li>
+
+</ul>
+
+</section>
+<section id="slide-org476ceb1">
+<h4 id="org476ceb1">Before</h4>
+<ul>
+<li>Predicate logic</li>
+<li><p>
+Good for simple testing
+</p>
+<pre class="example" id="org88a735a">
+# TODO example of predicate logic representation
+</pre></li>
+
+</ul>
+</section>
+<section id="slide-org14e6aae">
+<h4 id="org14e6aae">After</h4>
+<ul>
+<li>Conversion functions from predicate logic to MOPs</li>
+<li>Actual logic uses OWL-like knowledge graph</li>
+
+</ul>
+
+</section>
+<section id="slide-org17bbae7">
+<h3 id="org17bbae7">Tests</h3>
+
+</section>
+</section>
+<section>
+<section id="slide-org849aa4e">
+<h2 id="org849aa4e">Challenges</h2>
+<div class="outline-text-2" id="text-org849aa4e">
+</div>
+</section>
+<section id="slide-org49d39e1">
+<h3 id="org49d39e1">Large intermediate output (Solved)</h3>
+<ul>
+<li>Difficult to parse giant maps of repetitive information</li>
+
+</ul>
+
+</section>
+<section id="slide-org3b3425f">
+<h3 id="org3b3425f">"Correct" answers are not always intuitive</h3>
+<ul>
+<li>While the algorithm is determinate, it's difficult to check if the result is correct.</li>
+<li>Difficult to test</li>
+<li>Multiple global mappings are output, some with intuitively "wrong" correspondences.</li>
+
+</ul>
+
+</section>
+<section id="slide-org13420cf">
+<h3 id="org13420cf">Combinatorics (Work in progress)</h3>
+<ul>
+<li>All combinations of potentially corresponding entities gets huge quick.</li>
+<li>What I call the "maximum constrained subset problem"
+<ul>
+<li>Given a set, \(S\), and a constraint, \(C\), find all maximum sized sets s.t. \(S\) satisfies \(C\)</li>
+<li>Number of possible subsets is \(2^{|S|}\)</li>
+<li>Naive BFS doesn't help</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org1b762d3">
+<h2 id="org1b762d3">The larger picture</h2>
+<div class="outline-text-2" id="text-org1b762d3">
+</div>
+</section>
+<section id="slide-orgb0bc6dc">
+<h3 id="orgb0bc6dc">Where it fits into my own work</h3>
+<ul>
+<li>Uses my MOPs library</li>
+<li>Used in Knowtator for visualizing analogies</li>
+<li>Will be used in my analogical abstraction framework to identify correspondences</li>
+
+</ul>
+
+</section>
+<section id="slide-orgc03f22c">
+<h3 id="orgc03f22c">Alternatives</h3>
+
+</section>
+</section>
+<section>
+<section id="slide-org9e3edb0">
+<h2 id="org9e3edb0">Calcium sparks and neuron spiking</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org1ca3c1c">
+<h2 id="org1ca3c1c">TODO</h2>
+<ul>
+<li>Handwritten library of analogies</li>
+<li>Solve the "maximum constrained subset problem"</li>
+<li>More interactive visualizations</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-bibliography">
+<h2 id="bibliography">Contact info and acknowledgments</h2>
+<ul>
+<li>Email: harrison.pielke-lombardo@cuanschutz.edu</li>
+<li>GitHub: tuh8888@github.com</li>
+<li>Advisor: Larry Hunter</li>
+<li>Colorado Biomedical Informatics Training Program grant T15 LM009451</li>
+
+</ul>
+
+<div style="font-size:16px">
+<p>
+<a href="My_Library.bib">My_Library.bib</a>
+
+</p>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="./node_modules/reveal.js/dist/reveal.js"></script>
+<script src="./node_modules/reveal.js/plugin/markdown/markdown.js"></script>
+<script src="./node_modules/reveal.js/plugin/notes/notes.js"></script>
+<script src="./node_modules/reveal.js/plugin/search/search.js"></script>
+<script src="./node_modules/reveal.js/plugin/zoom/zoom.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+width: "100%",
+
+transition: 'convex',
+transitionSpeed: 'default',
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealMarkdown, RevealNotes, RevealSearch, RevealZoom ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>

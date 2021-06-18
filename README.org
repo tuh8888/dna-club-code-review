@@ -21,20 +21,23 @@
 #+LaTeX_HEADER: \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry}
 #+LaTeX_HEADER: \pagestyle{empty}
 #+LaTeX_HEADER: \hyphenation{ionto-pho-re-tic iso-tro-pic fortran}
-#+OPTIONS: toc:nil num:nil reveal_progress:true reveal_history:true reveal_width:"100%" reveal_klipsify_src:t
+#+OPTIONS: toc:nil num:nil reveal_progress:true reveal_history:true reveal_width:"100%" reveal_klipsify_src:t reveal_slide_number:nil reveal_center:true reveal_mousewheel:t reveal_controls:nil
 
-#+REVEAL_INIT_OPTIONS: slideNumber:false
+#+REVEAL_EXTRA_CSS: https://use.fontawesome.com/releases/v5.15.3/css/all.css
 #+REVEAL_EXTRA_CSS: custom.css
 #+REVEAL_THEME: sky
 
-#+REVEAL_ROOT: ./node_modules/reveal.js
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
+#+REVEAL_VERSION: 4
+
 #+REVEAL_TITLE_SLIDE: <h2 class="title">%t</h2><p class="author">%a</p><p>University of Colorado Anschutz Medical Campus</p><p class="date">%d</p>
 #+REVEAL_PLUGINS: (highlight)
+#+REVEAL_ADD_PLUGIN: chalkboard RevealChalkboard https://cdn.jsdelivr.net/gh/rajgoel/reveal.js-plugins/chalkboard/plugin.js
+
 #+REVEAL_CODEMIRROR_CONFIG: codemirror_options_in: {
 #+REVEAL_CODEMIRROR_CONFIG:   lineNumbers: true,
 #+REVEAL_CODEMIRROR_CONFIG:   autoCloseBrackets: true
 #+REVEAL_CODEMIRROR_CONFIG: }
-
 
 * Clone the Repo
   - Code base: [[https:www.github.com/tuh8888/SME-clj]]

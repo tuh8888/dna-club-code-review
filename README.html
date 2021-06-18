@@ -7,12 +7,14 @@
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
-<link rel="stylesheet" href="./node_modules/reveal.js/dist/reveal.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>
 
-<link rel="stylesheet" href="./node_modules/reveal.js/dist/theme/sky.css" id="theme"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/sky.css" id="theme"/>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
 
 <link rel="stylesheet" href="custom.css"/>
-<link rel="stylesheet" href="./node_modules/reveal.js/plugin/highlight/zenburn.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/zenburn.css"/>
 <link rel="stylesheet" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css"/>
 <style>
 /* Position computations of klipse get confused by reveal.js's scaling.
@@ -51,10 +53,26 @@ autoCloseBrackets: true
 <h2 class="title">Structure Mapping Engine (SME-clj)</h2><p class="author">Harrison Pielke-Lombardo</p><p>University of Colorado Anschutz Medical Campus</p><p class="date">06/18/2021</p>
 </section>
 
-
 <section>
-<section id="slide-org41997dd">
-<h2 id="org41997dd">Clone the Repo</h2>
+<section id="slide-org979bd13">
+<h2 id="org979bd13">Comments</h2>
+<ul>
+<li>This presentation embeds reveal.js and the
+<a href="https://github.com/rajgoel/reveal.js-plugins/tree/master/chalkboard">chalkboard plugin</a>
+from remote locations.</li>
+
+<li>See <a href="https://gitlab.com/oer/org-re-reveal/-/issues/60">issue #60</a>.</li>
+
+<li>Press <code>b</code> or <code>c</code> as usual to work with the chalkboard.</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org1c29d73">
+<h2 id="org1c29d73">Clone the Repo</h2>
 <ul>
 <li>Code base: <a href="https:www.github.com/tuh8888/SME-clj">https:www.github.com/tuh8888/SME-clj</a></li>
 <li>This presentation: <a href="https:www.github.com/tuh8888/DnA-Code-Club-June-2021">https:www.github.com/tuh8888/DnA-Code-Club-June-2021</a></li>
@@ -147,8 +165,8 @@ Analogy is the comparison or alignment of two structured representations
 </ol>
 
 </section>
-<section id="slide-orgd14fc0f">
-<h3 id="orgd14fc0f">Consistency</h3>
+<section id="slide-org0b23d23">
+<h3 id="org0b23d23">Consistency</h3>
 
 </section>
 <section id="slide-benefits">
@@ -215,7 +233,7 @@ Analogy is the comparison or alignment of two structured representations
 <h3 id="clojure-example">Examples</h3>
 </section>
 <section id="slide-example-1">
-<h4 id="example-1">Example 1</h4>
+<h4 id="example-1">Examples</h4>
 <div style="font-size:1rem">
 <pre><code class="language-klipse" >
 (+ 1 2 3)
@@ -240,16 +258,17 @@ Analogy is the comparison or alignment of two structured representations
 (def greeting "Hello")
 
 (defn hello [name]
-  (println greeting name "!"))
+  (println (str greeting name "!")))
 
 (hello "DnA code club")
 </code></pre>
 </div>
+
 </section>
 </section>
 <section>
-<section id="slide-code">
-<h2 id="code">The Code!</h2>
+<section id="slide-sme-clj">
+<h2 id="sme-clj">SME-clj</h2>
 </section>
 <section id="slide-project-org">
 <h3 id="project-org">Project organization</h3>
@@ -308,13 +327,13 @@ Analogy is the comparison or alignment of two structured representations
 <h2 id="old-v-new">Old vs. New: What changed?</h2>
 
 </section>
-<section id="slide-orgb75077a">
-<h3 id="orgb75077a">Ease of use</h3>
-<div class="outline-text-3" id="text-orgb75077a">
+<section id="slide-orgf21ae9f">
+<h3 id="orgf21ae9f">Ease of use</h3>
+<div class="outline-text-3" id="text-orgf21ae9f">
 </div>
 </section>
-<section id="slide-orgca3d7fa">
-<h4 id="orgca3d7fa">Before</h4>
+<section id="slide-org0feae50">
+<h4 id="org0feae50">Before</h4>
 <ul>
 <li>Extremely large output and intermediate steps</li>
 <li>Dispersed, mutable knowledge</li>
@@ -322,8 +341,8 @@ Analogy is the comparison or alignment of two structured representations
 
 </ul>
 </section>
-<section id="slide-orgab0dff1">
-<h4 id="orgab0dff1">After</h4>
+<section id="slide-org14531f2">
+<h4 id="org14531f2">After</h4>
 <ul>
 <li>Removed everything except match hypotheses in intermediate steps</li>
 <li>Condensed, immutable knowledge graph</li>
@@ -332,13 +351,13 @@ Analogy is the comparison or alignment of two structured representations
 </ul>
 
 </section>
-<section id="slide-orgabddf08">
-<h3 id="orgabddf08">MOPs representation</h3>
-<div class="outline-text-3" id="text-orgabddf08">
+<section id="slide-org01f3959">
+<h3 id="org01f3959">MOPs representation</h3>
+<div class="outline-text-3" id="text-org01f3959">
 </div>
 </section>
-<section id="slide-org98ac2c0">
-<h4 id="org98ac2c0">Memory Organization Packets  (MOPs)</h4>
+<section id="slide-org0ce8140">
+<h4 id="org0ce8140">Memory Organization Packets  (MOPs)</h4>
 <ul>
 <li>Composed of slots
 <ul>
@@ -351,21 +370,21 @@ Analogy is the comparison or alignment of two structured representations
 </ul>
 
 </section>
-<section id="slide-org99d12dc">
-<h4 id="org99d12dc">Before</h4>
+<section id="slide-org2372f6b">
+<h4 id="org2372f6b">Before</h4>
 <ul>
 <li>Predicate logic</li>
 <li><p>
 Good for simple testing
 </p>
-<pre class="example" id="org02d1b6e">
+<pre class="example" id="orgfa6d68c">
 # TODO example of predicate logic representation
 </pre></li>
 
 </ul>
 </section>
-<section id="slide-org9becf24">
-<h4 id="org9becf24">After</h4>
+<section id="slide-org32fd9cd">
+<h4 id="org32fd9cd">After</h4>
 <ul>
 <li>Conversion functions from predicate logic to MOPs</li>
 <li>Actual logic uses OWL-like knowledge graph</li>
@@ -373,8 +392,8 @@ Good for simple testing
 </ul>
 
 </section>
-<section id="slide-org4065ca4">
-<h3 id="org4065ca4">Tests</h3>
+<section id="slide-org81fbd22">
+<h3 id="org81fbd22">Tests</h3>
 
 </section>
 </section>
@@ -382,16 +401,16 @@ Good for simple testing
 <section id="slide-challenges">
 <h2 id="challenges">Challenges</h2>
 </section>
-<section id="slide-orgd4080c0">
-<h3 id="orgd4080c0">Large intermediate output (Solved)</h3>
+<section id="slide-org4bd37a2">
+<h3 id="org4bd37a2">Large intermediate output (Solved)</h3>
 <ul>
 <li>Difficult to parse giant maps of repetitive information</li>
 
 </ul>
 
 </section>
-<section id="slide-org22363fb">
-<h3 id="org22363fb">"Correct" answers are not always intuitive</h3>
+<section id="slide-org5966a7c">
+<h3 id="org5966a7c">"Correct" answers are not always intuitive</h3>
 <ul>
 <li>While the algorithm is determinate, it's difficult to check if the result is correct.</li>
 <li>Difficult to test</li>
@@ -422,8 +441,8 @@ Good for simple testing
 <h2 id="larger-picture">The larger picture</h2>
 
 </section>
-<section id="slide-org01143e9">
-<h3 id="org01143e9">Where it fits into my own work</h3>
+<section id="slide-org7e81500">
+<h3 id="org7e81500">Where it fits into my own work</h3>
 <ul>
 <li>Uses my MOPs library</li>
 <li>Used in Knowtator for visualizing analogies</li>
@@ -432,8 +451,8 @@ Good for simple testing
 </ul>
 
 </section>
-<section id="slide-orgda2f837">
-<h3 id="orgda2f837">Alternatives</h3>
+<section id="slide-org2207ffc">
+<h3 id="org2207ffc">Alternatives</h3>
 
 </section>
 </section>
@@ -476,8 +495,9 @@ Good for simple testing
 </section>
 </div>
 </div>
-<script src="./node_modules/reveal.js/dist/reveal.js"></script>
-<script src="./node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/rajgoel/reveal.js-plugins/chalkboard/plugin.js"></script>
 <script>
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
@@ -487,10 +507,10 @@ controls: true,
 progress: true,
 history: true,
 center: true,
-slideNumber: 'c',
+slideNumber: false,
 rollingLinks: false,
 keyboard: true,
-mouseWheel: false,
+mouseWheel: true,
 fragmentInURL: false,
 hashOneBasedIndex: false,
 pdfSeparateFragments: true,
@@ -501,7 +521,7 @@ transition: 'convex',
 transitionSpeed: 'default',
 
 // Plugins with reveal.js 4.x
-plugins: [ RevealHighlight ],
+plugins: [ RevealHighlight, RevealChalkboard ],
 
 // Optional libraries used to extend reveal.js
 dependencies: [

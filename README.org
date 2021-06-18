@@ -1,0 +1,230 @@
+#+title: Structure Mapping Engine (SME-clj)
+#+sub-title: DnA Lab Code Review
+#+author: Harrison Pielke-Lombardo
+#+date: 06/18/2021
+#+email: harrison.pielke-lombardo@cuanschutz.edu
+#+LaTeX_CLASS: article
+#+LaTeX_CLASS_OPTIONS: [11pt, notitlepage]
+#+LaTeX_HEADER: \usepackage[utf8]{inputenc}
+#+LaTeX_HEADER: \usepackage[T1]{fontenc}
+# % A note on fonts: As of 2019, NIH allows Arial, Georgia, Helvetica, and Palatino Linotype. Georgia and Arial are commercial fonts so you will need to use XeLaTeX and have them installed on your machine to use them. Palatino & Helvetica are available as free LaTeX packages so select the one you want and comment out the other.
+#+LaTeX_HEADER: \usepackage{palatino}
+# % A little extra line spread is better for the Palatino font
+#+LaTeX_HEADER: \linespread{1.05}
+#+LaTeX_HEADER: \renewcommand*\familydefault{\sfdefault}
+
+#+LaTeX_HEADER: \usepackage{amsfonts, amsmath, amsthm, amssymb}
+#+LaTeX_HEADER: \usepackage{graphicx}
+#+LaTeX_HEADER: \usepackage{booktabs}
+#+LaTeX_HEADER: \usepackage{wrapfig}
+#+LaTeX_HEADER: \usepackage[labelfont=bf]{caption}
+#+LaTeX_HEADER: \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry}
+#+LaTeX_HEADER: \pagestyle{empty}
+#+LaTeX_HEADER: \hyphenation{ionto-pho-re-tic iso-tro-pic fortran}
+#+OPTIONS: toc:nil num:nil reveal_progress:true reveal_history:true reveal_width:"100%"
+
+#+REVEAL_INIT_OPTIONS: slideNumber:false
+#+REVEAL_EXTRA_CSS: custom.css
+#+REVEAL_THEME: sky
+
+#+REVEAL_ROOT: ./node_modules/reveal.js
+#+REVEAL_TITLE_SLIDE: <h2 class="title">%t</h2><p class="author">%a</p><p>University of Colorado Anschutz Medical Campus</p><p class="date">%d</p>
+
+* SME-clj: Clone it!
+  - Code base: [[github.com/tuh8888/SME-clj]]
+  - This presentation: github.com/tuh8888/DnA-Code-Club-June-2021
+
+* Analyzing biological mechanisms using analogy
+  - Mechanisms are entities and activities and their organization such that they are productive of regular changes from initial to terminal conditions.
+  - Analogy is the comparison or alignment of two structured representations
+
+* Analogy 101
+  - Identify corresponding elements
+  - Inference between base and target
+
+* Computational tools for analogy
+  - Structure Mapping Engine
+  - Copycat
+  # TODO Other
+
+* Structure mapping engine
+
+** Inputs:
+   - Base concept graph
+   - Target concept graph
+   - Rule set
+
+** Outputs:
+   - Global mapping containing:
+      - A set of match hypotheses (correspondences)
+      - Inferences, some of which are transferred from the base to the target
+
+** Overview of the strategy
+   - Generate potential match hypotheses
+   - Match internally consistent sets of match hypotheses (global mappings)
+   - Merge global mappings
+   - Score global mappings
+   - Inference
+   - Transfer inferences
+
+** Benefits
+   - Relatively simple
+   - Seems to handle certain cases well
+   - Computationally tractable solution to difficult problem
+
+** Limitations
+   - Made for first-order logic
+   - Hard-coded rules and types
+
+** Consistency
+   # TODO
+
+* History of the code-base
+
+** Common Lisp implementation
+   # TODO 1980's
+
+** Clojure re-write and simplification
+   - SME-clj
+
+** My fork: SME-clj reborn
+   - Mops representation
+   - Further simplification
+
+* Clojure 101
+  - Functional
+  - Dynamic
+  - Lisp (function calls are first)
+  - JVM or Browser hosted
+  - REPL-driven development
+
+** Example
+  #+BEGIN_SRC clojure
+(+ 1 2 3)
+;; => 6
+
+(let [x 2
+      y 3
+      x (+ x y)]
+  (+ x y))
+;; => 7
+
+(->> ["Happy" 1 '(str (Integer/parseInt "21") "st") 2 3 "birthday!"]
+  (remove int?)
+  (map eval)
+  (interpose " ")
+  (reduce str))
+;; => "Happy 21st birthday!"
+
+(def greeting "Hello")
+(defn hello [name]
+  (println greeting name "!"))
+
+(hello "DnA code club")
+;; "Hello DnA code club!"
+  #+END_SRC
+
+* The Code!
+** Project organization
+   # TODO project directory structure
+   - Source
+     - Predefined rule sets
+     - Type logic
+     - Core pipeline
+   - Tests
+   - Notebooks
+** Predefined rule sets
+   - Named rules
+   - Functions
+   - Literal similarity vs analogy rules
+** Type logic
+   - Building knowledge graphs
+   - Handling different representations with multi-methods
+** Core pipeline
+   1. Generate match hypotheses
+   2. Create combinations of sets of match hypotheses
+   3. Merge global mappings
+   4. Finalize (score, etc.)
+   5. Inference
+   6. Transfer inferences
+
+* Example: Solar system model of the atom
+
+* Old vs. New: What changed?
+
+** Ease of use
+*** Before
+   - Extremely large output and intermediate steps
+   - Dispersed, mutable knowledge
+   - Hard to experiment with predefined types
+*** After
+    - Removed everything except match hypotheses in intermediate steps
+    - Condensed, immutable knowledge graph
+    - Keyword representation is much more flexible
+
+** MOPs representation
+*** Memory Organization Packets  (MOPs)
+    - Composed of slots
+      - Roles
+      - Fillers
+    - Meta-data
+
+*** Before
+    - Predicate logic
+    - Good for simple testing
+     #+begin_example
+# TODO example of predicate logic representation
+     #+end_example
+*** After
+    - Conversion functions from predicate logic to MOPs
+    - Actual logic uses OWL-like knowledge graph
+
+** Tests
+   # TODO explain testing framework
+
+* Challenges
+** Large intermediate output (Solved)
+   - Difficult to parse giant maps of repetitive information
+
+** "Correct" answers are not always intuitive
+   - While the algorithm is determinate, it's difficult to check if the result is correct.
+   - Difficult to test
+   - Multiple global mappings are output, some with intuitively "wrong" correspondences.
+
+** Combinatorics (Work in progress)
+   - All combinations of potentially corresponding entities gets huge quick.
+   - What I call the "maximum constrained subset problem"
+     - Given a set, $S$, and a constraint, $C$, find all maximum sized sets s.t. $S$ satisfies $C$
+     - Number of possible subsets is $2^{|S|}$
+     - Naive BFS doesn't help
+
+* The larger picture
+
+** Where it fits into my own work
+   - Uses my MOPs library
+   - Used in Knowtator for visualizing analogies
+   - Will be used in my analogical abstraction framework to identify correspondences
+
+** Alternatives
+
+* Calcium sparks and neuron spiking
+
+* TODO
+  - Handwritten library of analogies
+  - Solve the "maximum constrained subset problem"
+  - More interactive visualizations
+
+* Contact info and acknowledgments
+  :PROPERTIES:
+  :CREATED:  [2020-10-24 Sat 04:27]
+  :CUSTOM_ID: bibliography
+  :END:
+  - Email: harrison.pielke-lombardo@cuanschutz.edu
+  - GitHub: tuh8888@github.com
+  - Advisor: Larry Hunter
+  - Colorado Biomedical Informatics Training Program grant T15 LM009451
+
+  #+REVEAL_HTML: <div style="font-size:16px">
+  bibliography:My_Library.bib
+  bibliographystyle:plain
+  #+REVEAL_HTML: </div>

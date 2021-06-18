@@ -21,7 +21,7 @@
 #+LaTeX_HEADER: \usepackage[top=0.5in,bottom=0.5in,left=0.5in,right=0.5in]{geometry}
 #+LaTeX_HEADER: \pagestyle{empty}
 #+LaTeX_HEADER: \hyphenation{ionto-pho-re-tic iso-tro-pic fortran}
-#+OPTIONS: toc:nil num:nil reveal_progress:true reveal_history:true reveal_width:"100%"
+#+OPTIONS: toc:nil num:nil reveal_progress:true reveal_history:true reveal_width:"100%" reveal_klipsify_src:t
 
 #+REVEAL_INIT_OPTIONS: slideNumber:false
 #+REVEAL_EXTRA_CSS: custom.css
@@ -29,6 +29,12 @@
 
 #+REVEAL_ROOT: ./node_modules/reveal.js
 #+REVEAL_TITLE_SLIDE: <h2 class="title">%t</h2><p class="author">%a</p><p>University of Colorado Anschutz Medical Campus</p><p class="date">%d</p>
+#+REVEAL_PLUGINS: (highlight)
+#+REVEAL_CODEMIRROR_CONFIG: codemirror_options_in: {
+#+REVEAL_CODEMIRROR_CONFIG:   lineNumbers: true,
+#+REVEAL_CODEMIRROR_CONFIG:   autoCloseBrackets: true
+#+REVEAL_CODEMIRROR_CONFIG: }
+
 
 * Clone the Repo
   - Code base: [[https:www.github.com/tuh8888/SME-clj]]
@@ -151,38 +157,47 @@
   - JVM or Browser hosted
   - REPL-driven development
 
-** Example
+** Examples
    :PROPERTIES:
    :CUSTOM_ID: clojure-example
    :END:
-  #+BEGIN_SRC clojure
+*** Examples
+    :PROPERTIES:
+    :CUSTOM_ID: example-1
+    :END:
+   #+REVEAL_HTML: <div style="font-size:1rem">
+    #+BEGIN_SRC clojure
 (+ 1 2 3)
-;; => 6
+    #+END_SRC
 
+    #+BEGIN_SRC clojure
 (let [x 2
       y 3
       x (+ x y)]
   (+ x y))
-;; => 7
+    #+END_SRC
 
-(->> ["Happy" 1 '(str (Integer/parseInt "21") "st") 2 3 "birthday!"]
+    #+BEGIN_SRC clojure
+(->> ["Happy" 1 '(str (js/parseInt "21") "st") 2 3 "birthday!"]
   (remove int?)
   (map eval)
   (interpose " ")
   (reduce str))
-;; => "Happy 21st birthday!"
+    #+END_SRC
 
+    #+BEGIN_SRC clojure
 (def greeting "Hello")
+
 (defn hello [name]
-  (println greeting name "!"))
+  (println (str greeting name "!")))
 
 (hello "DnA code club")
-;; "Hello DnA code club!"
-  #+END_SRC
+    #+END_SRC
+   #+REVEAL_HTML: </div>
 
-* The Code!
+* SME-clj
   :PROPERTIES:
-  :CUSTOM_ID: code
+  :CUSTOM_ID: sme-clj
   :END:
 ** Project organization
    :PROPERTIES:

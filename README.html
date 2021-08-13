@@ -54,28 +54,11 @@ autoCloseBrackets: true
 </section>
 
 <section>
-<section id="slide-org979bd13">
-<h2 id="org979bd13">Comments</h2>
+<section id="slide-org6563c10">
+<h2 id="org6563c10">Clone the Repo</h2>
 <ul>
-<li>This presentation embeds reveal.js and the
-<a href="https://github.com/rajgoel/reveal.js-plugins/tree/master/chalkboard">chalkboard plugin</a>
-from remote locations.</li>
-
-<li>See <a href="https://gitlab.com/oer/org-re-reveal/-/issues/60">issue #60</a>.</li>
-
-<li>Press <code>b</code> or <code>c</code> as usual to work with the chalkboard.</li>
-
-</ul>
-
-
-</section>
-</section>
-<section>
-<section id="slide-org1c29d73">
-<h2 id="org1c29d73">Clone the Repo</h2>
-<ul>
-<li>Code base: <a href="https:www.github.com/tuh8888/SME-clj">https:www.github.com/tuh8888/SME-clj</a></li>
-<li>This presentation: <a href="https:www.github.com/tuh8888/DnA-Code-Club-June-2021">https:www.github.com/tuh8888/DnA-Code-Club-June-2021</a></li>
+<li>Code base: <a href="https://www.github.com/tuh8888/SME-clj">https://www.github.com/tuh8888/SME-clj</a></li>
+<li>This presentation: <a href="https://www.github.com/tuh8888/DnA-Code-Club-June-2021">https://www.github.com/tuh8888/DnA-Code-Club-June-2021</a></li>
 
 </ul>
 <div class="org-src-container">
@@ -114,11 +97,41 @@ Analogy is the comparison or alignment of two structured representations
 </ul>
 
 </section>
+<section id="slide-org9d26fb6">
+<h3 id="org9d26fb6">Analogies in biology</h3>
+<div style="width:50%;float:left">
+
+<div id="orge83d1c8" class="figure">
+<p><img src="images/DNA_unzipping.png" alt="DNA_unzipping.png" />
+</p>
+</div>
+
+
+<p>
+DNA replication &rarr; zipper
+</p>
+</div>
+<div style="width:50%;float: left">
+
+<div id="org485d87d" class="figure">
+<p><img src="images/lock-and-key-enzyme.jpg" alt="lock-and-key-enzyme.jpg" />
+</p>
+</div>
+
+
+<p>
+Enzyme activity &rarr; lock-and-key
+</p>
+</div>
+
+</section>
 <section id="slide-comp-analogy">
 <h3 id="comp-analogy">Computational tools for analogy</h3>
 <ul>
-<li>Structure Mapping Engine</li>
-<li>Copycat</li>
+<li>Structure Mapping Engine (SME)  (Falkenhainer 1989)</li>
+<li>Copycat (Hofstadter 1994)</li>
+<li>Analogical Mapping by Constraint Satisfaction (ACME) (Holyoak 1989]</li>
+<li>Learning and Inference with Schemas and Analogies (LISA) (Hummel 1997)</li>
 
 </ul>
 
@@ -156,17 +169,13 @@ Analogy is the comparison or alignment of two structured representations
 <h3 id="overview">Overview of the strategy</h3>
 <ol>
 <li>Generate potential match hypotheses</li>
-<li>Match internally consistent sets of match hypotheses (global mappings)</li>
-<li>Merge global mappings</li>
+<li>Match locally consistent sets of match hypotheses (global mappings)</li>
+<li>Merge global mappings into clusters of match hypotheses</li>
 <li>Score global mappings</li>
 <li>Inference</li>
 <li>Transfer inferences</li>
 
 </ol>
-
-</section>
-<section id="slide-org0b23d23">
-<h3 id="org0b23d23">Consistency</h3>
 
 </section>
 <section id="slide-benefits">
@@ -327,13 +336,13 @@ Analogy is the comparison or alignment of two structured representations
 <h2 id="old-v-new">Old vs. New: What changed?</h2>
 
 </section>
-<section id="slide-orgf21ae9f">
-<h3 id="orgf21ae9f">Ease of use</h3>
-<div class="outline-text-3" id="text-orgf21ae9f">
+<section id="slide-orgd815840">
+<h3 id="orgd815840">Ease of use</h3>
+<div class="outline-text-3" id="text-orgd815840">
 </div>
 </section>
-<section id="slide-org0feae50">
-<h4 id="org0feae50">Before</h4>
+<section id="slide-org022324b">
+<h4 id="org022324b">Before</h4>
 <ul>
 <li>Extremely large output and intermediate steps</li>
 <li>Dispersed, mutable knowledge</li>
@@ -341,8 +350,8 @@ Analogy is the comparison or alignment of two structured representations
 
 </ul>
 </section>
-<section id="slide-org14531f2">
-<h4 id="org14531f2">After</h4>
+<section id="slide-org23c8eca">
+<h4 id="org23c8eca">After</h4>
 <ul>
 <li>Removed everything except match hypotheses in intermediate steps</li>
 <li>Condensed, immutable knowledge graph</li>
@@ -351,13 +360,13 @@ Analogy is the comparison or alignment of two structured representations
 </ul>
 
 </section>
-<section id="slide-org01f3959">
-<h3 id="org01f3959">MOPs representation</h3>
-<div class="outline-text-3" id="text-org01f3959">
+<section id="slide-org40be112">
+<h3 id="org40be112">MOPs representation</h3>
+<div class="outline-text-3" id="text-org40be112">
 </div>
 </section>
-<section id="slide-org0ce8140">
-<h4 id="org0ce8140">Memory Organization Packets  (MOPs)</h4>
+<section id="slide-org947a044">
+<h4 id="org947a044">Memory Organization Packets  (MOPs)</h4>
 <ul>
 <li>Composed of slots
 <ul>
@@ -370,21 +379,21 @@ Analogy is the comparison or alignment of two structured representations
 </ul>
 
 </section>
-<section id="slide-org2372f6b">
-<h4 id="org2372f6b">Before</h4>
+<section id="slide-orgef0a4c4">
+<h4 id="orgef0a4c4">Before</h4>
 <ul>
 <li>Predicate logic</li>
 <li><p>
 Good for simple testing
 </p>
-<pre class="example" id="orgfa6d68c">
+<pre class="example" id="org786de35">
 # TODO example of predicate logic representation
 </pre></li>
 
 </ul>
 </section>
-<section id="slide-org32fd9cd">
-<h4 id="org32fd9cd">After</h4>
+<section id="slide-org35cb524">
+<h4 id="org35cb524">After</h4>
 <ul>
 <li>Conversion functions from predicate logic to MOPs</li>
 <li>Actual logic uses OWL-like knowledge graph</li>
@@ -392,8 +401,8 @@ Good for simple testing
 </ul>
 
 </section>
-<section id="slide-org81fbd22">
-<h3 id="org81fbd22">Tests</h3>
+<section id="slide-org2edeb40">
+<h3 id="org2edeb40">Tests</h3>
 
 </section>
 </section>
@@ -401,16 +410,16 @@ Good for simple testing
 <section id="slide-challenges">
 <h2 id="challenges">Challenges</h2>
 </section>
-<section id="slide-org4bd37a2">
-<h3 id="org4bd37a2">Large intermediate output (Solved)</h3>
+<section id="slide-org96304cd">
+<h3 id="org96304cd">Large intermediate output (Solved)</h3>
 <ul>
 <li>Difficult to parse giant maps of repetitive information</li>
 
 </ul>
 
 </section>
-<section id="slide-org5966a7c">
-<h3 id="org5966a7c">"Correct" answers are not always intuitive</h3>
+<section id="slide-orgac9cc86">
+<h3 id="orgac9cc86">"Correct" answers are not always intuitive</h3>
 <ul>
 <li>While the algorithm is determinate, it's difficult to check if the result is correct.</li>
 <li>Difficult to test</li>
@@ -441,8 +450,8 @@ Good for simple testing
 <h2 id="larger-picture">The larger picture</h2>
 
 </section>
-<section id="slide-org7e81500">
-<h3 id="org7e81500">Where it fits into my own work</h3>
+<section id="slide-org499d3df">
+<h3 id="org499d3df">Where it fits into my own work</h3>
 <ul>
 <li>Uses my MOPs library</li>
 <li>Used in Knowtator for visualizing analogies</li>
@@ -451,8 +460,8 @@ Good for simple testing
 </ul>
 
 </section>
-<section id="slide-org2207ffc">
-<h3 id="org2207ffc">Alternatives</h3>
+<section id="slide-org0568bc2">
+<h3 id="org0568bc2">Alternatives</h3>
 
 </section>
 </section>
@@ -471,6 +480,31 @@ Good for simple testing
 <li>More interactive visualizations</li>
 
 </ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgae24ff5">
+<h2 id="orgae24ff5">Maximum constrained subset problem</h2>
+<div class="outline-text-2" id="text-orgae24ff5">
+</div>
+</section>
+<section id="slide-org49efaaa">
+<h3 id="org49efaaa">BFS attempt</h3>
+
+<div id="orgdded80d" class="figure">
+<p><img src="images/20210618_105252.jpg" alt="20210618_105252.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-org461b8d2">
+<h3 id="org461b8d2">Logic attempt</h3>
+
+<div id="org7c079f2" class="figure">
+<p><img src="images/Screenshot_20210616-105423_Zoom.jpg" alt="Screenshot_20210616-105423_Zoom.jpg" />
+</p>
+</div>
 
 </section>
 </section>

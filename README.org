@@ -40,8 +40,8 @@
 #+REVEAL_CODEMIRROR_CONFIG: }
 
 * Clone the Repo
-  - Code base: [[https:www.github.com/tuh8888/SME-clj]]
-  - This presentation: [[https:www.github.com/tuh8888/DnA-Code-Club-June-2021]]
+  - Code base: [[https://www.github.com/tuh8888/SME-clj]]
+  - This presentation: [[https://www.github.com/tuh8888/DnA-Code-Club-June-2021]]
 #+begin_src bash
   npm install
   xdg-open ./README.html
@@ -68,13 +68,28 @@
    - Corresponding elements
    - Inference
 
+** Analogies in biology
+  #+REVEAL_HTML: <div style="width:50%;float:left">
+  file:images/DNA_unzipping.png
+
+
+  DNA replication \rarr zipper
+  #+REVEAL_HTML: </div>
+  #+REVEAL_HTML: <div style="width:50%;float: left">
+  file:images/lock-and-key-enzyme.jpg
+
+
+  Enzyme activity \rarr lock-and-key
+  #+REVEAL_HTML: </div>
+
 ** Computational tools for analogy
    :PROPERTIES:
    :CUSTOM_ID: comp-analogy
    :END:
-   - Structure Mapping Engine
-   - Copycat
-   # TODO Other
+   - Structure Mapping Engine (SME)  (Falkenhainer 1989)
+   - Copycat (Hofstadter 1994)
+   - Analogical Mapping by Constraint Satisfaction (ACME) (Holyoak 1989]
+   - Learning and Inference with Schemas and Analogies (LISA) (Hummel 1997)
 
 * Structure mapping engine
   :PROPERTIES:
@@ -102,14 +117,11 @@
    :CUSTOM_ID: overview
    :END:
    1. Generate potential match hypotheses
-   2. Match internally consistent sets of match hypotheses (global mappings)
-   3. Merge global mappings
+   2. Match locally consistent sets of match hypotheses (global mappings)
+   3. Merge global mappings into clusters of match hypotheses
    4. Score global mappings
    5. Inference
    6. Transfer inferences
-
-** Consistency
-   # TODO
 
 ** Benefits
    :PROPERTIES:
@@ -324,6 +336,14 @@
   - Handwritten library of analogies
   - Solve the "maximum constrained subset problem"
   - More interactive visualizations
+
+* Maximum constrained subset problem
+
+** BFS attempt
+  [[file:images/20210618_105252.jpg]]
+
+** Logic attempt
+  [[file:images/Screenshot_20210616-105423_Zoom.jpg]]
 
 * Contact info and acknowledgments
   :PROPERTIES:
